@@ -13,17 +13,17 @@ import psycopg2.extras
 # import torchvision
 # import torch
 import numpy as np
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.applications import VGG16
-from tensorflow.keras.layers import AveragePooling2D
-from tensorflow.keras.layers import Dropout
-from tensorflow.keras.layers import Flatten
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.layers import Input
+#from tensorflow.keras.preprocessing.image import ImageDataGenerator
+#from tensorflow.keras.applications import VGG16
+#from tensorflow.keras.layers import AveragePooling2D
+#from tensorflow.keras.layers import Dropout
+#from tensorflow.keras.layers import Flatten
+#from tensorflow.keras.layers import Dense
+#from tensorflow.keras.layers import Input
 from tensorflow.keras.models import Model
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.utils import to_categorical
-from sklearn.preprocessing import MultiLabelBinarizer
+#from tensorflow.keras.optimizers import Adam
+#from tensorflow.keras.utils import to_categorical
+#from sklearn.preprocessing import MultiLabelBinarizer
 import matplotlib.pyplot as plt
 import seaborn as sns
 import cv2
