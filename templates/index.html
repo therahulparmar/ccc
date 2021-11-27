@@ -1,0 +1,138 @@
+<html>
+<head>
+<title>Upload and display image using Python Flask and insert to PostgreSQL</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />        
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<div style="background-image: url_for('static',filename='images/1.jpg') "></div>
+</head>
+<body>
+
+<p><h1 align="center">Covid-19 Detection Based On Chest X-ray System</h1></p>
+<div class="container">
+<div class="row">   
+    
+    <div>
+        <label>Patient Name</label>
+        <form method="post" action="{{ url_for('upload_image')}}" enctype="multipart/form-data">
+            <dl>
+                <p>
+                    <input type="text" name="name" class="form-control" autocomplete="off" required>
+                </p>
+            </dl>
+        
+    </div>
+    <div>
+        <dl>
+            <p>
+                <label>Age</label>
+                <input type="text" name="age" id="age" class="form-control" required>
+                
+            </p>
+        </dl>
+    </div>
+    <div>
+        <dl> 
+            <p>
+                <label>City</label>
+                <input type="text" name="city" id="city" class="form-control" required>
+                              
+            </p>
+        </dl>
+        
+    </div>
+    <div>
+        <dl>
+            <p>
+                <label>State</label>
+                <input type="text" name="state" id="state" class="form-control" required>
+                
+            </p>
+        </dl>
+    </div>
+    <div>
+        <dl>
+            <p>
+                <label>Pincode</label>
+                <input type="text" name="pincode" id="pincode" class="form-control" required>
+                
+            </p>
+        </dl>
+        
+    </div>
+    <div>
+        <dl>
+            <p>
+                <label>Mobile Number</label>
+                <input type="text" name="mobile" maxlength="10" id="mobile" class="form-control" required>
+                
+            </p>
+        </dl>
+        
+    </div>
+    <div>
+        <dl>
+            <p>
+                <label>Gender</label>
+                <div class="form-control" id="gender">
+                <label><input type="radio" name="gender" value="male"> Male</label>
+                <label><input type="radio" name="gender" value="female"> Female</label> 
+                </div>
+                
+            </p>
+        </dl>
+        
+    </div>
+
+    <div>
+        <dl>
+            <p>
+                <label>BloodGroup</label>
+                <select name="bloodgroup" id="bloodgroup" class="form-control" required>
+                <option>A Positive</option>
+                <option>A Negative</option>
+                <option>A Unknown</option>
+                <option>B Positive</option>
+                <option>B Negative</option>
+                <option>B Unknown</option>
+                <option>AB Positive</option>
+                <option>AB Negative</option>
+                <option>AB Unknown</option>
+                <option>O Positive</option>
+                <option>O Negative</option>
+                <option>O Unknown</option>
+                <option>Unknown</option>
+                </select>
+            </p>
+        </dl>
+        
+    </div>
+    
+    <h2>Select a file to upload</h2>
+    <div>
+        <dl>
+            <p>
+                <input type="file" name="file" class="form-control" autocomplete="off" required>
+            </p>
+        </dl>
+        <p>
+            <input type="submit" value="Submit" class="btn btn-info">
+        </p>
+        {% if filename %}
+
+    
+        <div>
+            <img src="{{ url_for('display_image', filename=filename) }}">
+        </div>
+        {% endif %}
+    
+        <br>
+    <h3>The result is:</h3>
+    <br> {{ prediction_text }} 
+    <br> <b>{{ prob_text }}</b>
+    <div>
+    
+    </form>
+</div>
+</div>
+</body>
+</html>
