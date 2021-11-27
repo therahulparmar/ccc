@@ -1,0 +1,11 @@
+Flask==1.1.2
+matplotlib==3.3.4
+numpy==1.19.5
+opencv_python==4.5.4.60
+Pillow==8.4.0
+psycopg2==2.9.2
+psycopg2_binary==2.9.1
+scikit_learn==1.0.1
+seaborn==0.11.1
+tensorflow==2.6.0
+Werkzeug==1.0.1
