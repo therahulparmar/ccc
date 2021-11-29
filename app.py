@@ -52,7 +52,7 @@ def test_rx_image_for_Covid19(imagePath):
 
     img = np.array(img) / 255.0
 
-    pred = model.predict(img)
+    pred = new_model.predict(img)
 
     return pred
 
@@ -60,8 +60,8 @@ def test_rx_image_for_Covid19(imagePath):
     # label with corresponding largest predicted probability
     # print(np.argmax(pred, axis=1))
 
-    print('\n X-Ray Covid-19 Detection using AI - MJRovai')
-    print('    [WARNING] - Only for didactic purposes')
+    #print('\n X-Ray Covid-19 Detection using AI - MJRovai')
+    #print('    [WARNING] - Only for didactic purposes')
 #     if np.argmax(pred, axis=1)[0] == 1:
 #         plt.title(
 #             '\nPrediction: [NEGATIVE] with prob: {}% \nNo Covid-19\n'.format(
@@ -138,7 +138,7 @@ def upload_image():
         mobile=request.form["mobile"]
         gender=request.form["gender"]
         bloodgroup=request.form["bloodgroup"]
-        cursor.execute("INSERT INTO db_cc_photo (img , name , age, city, state, pincode, mobile, gender, bloodgroup , probabilities) VALUES (%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s)", (filename, name , age, city, state, pincode, mobile, gender, bloodgroup, 
+        cursor.execute("INSERT INTO db_cc_photo (img , name , age, city, state, pincode, mobile, gender, bloodgroup , probabilities) VALUES (%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s)", (filename, name , age, city, state, pincode, mobile, gender, bloodgroup,pred[1] 
         ) )
         conn.commit() 
         #file_path = file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
