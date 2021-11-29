@@ -72,10 +72,10 @@ app = Flask(__name__)
      
 app.secret_key = "cairocoders-ednalan"
      
-DB_HOST = "localhost"
-DB_NAME = "CC_photo"
-DB_USER = "bob"
-DB_PASS = "admin"
+DB_HOST = "ec2-44-194-6-121.compute-1.amazonaws.com"
+DB_NAME = "dbkj4735h2f3lu"
+DB_USER = "frsaepunzvppfq"
+DB_PASS = "d89815db98e34772f8c4ef083e0e32375122863ad7cf1e05b049df98538abb04"
      
 conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
   
