@@ -13,17 +13,17 @@ import psycopg2.extras
 # import torchvision
 # import torch
 import numpy as np
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
-from tensorflow.keras.applications import VGG16
-from tensorflow.keras.layers import AveragePooling2D
-from tensorflow.keras.layers import Dropout
-from tensorflow.keras.layers import Flatten
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.layers import Input
+#from tensorflow.keras.preprocessing.image import ImageDataGenerator
+#from tensorflow.keras.applications import VGG16
+#from tensorflow.keras.layers import AveragePooling2D
+#from tensorflow.keras.layers import Dropout
+#from tensorflow.keras.layers import Flatten
+#from tensorflow.keras.layers import Dense
+#from tensorflow.keras.layers import Input
 from tensorflow.keras.models import Model
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.utils import to_categorical
-from sklearn.preprocessing import MultiLabelBinarizer
+#from tensorflow.keras.optimizers import Adam
+#from tensorflow.keras.utils import to_categorical
+#from sklearn.preprocessing import MultiLabelBinarizer
 import matplotlib.pyplot as plt
 import seaborn as sns
 import cv2
@@ -72,10 +72,10 @@ app = Flask(__name__)
      
 app.secret_key = "cairocoders-ednalan"
      
-DB_HOST = "localhost"
-DB_NAME = "CC_photo"
-DB_USER = "bob"
-DB_PASS = "admin"
+DB_HOST = "ec2-44-194-6-121.compute-1.amazonaws.com"
+DB_NAME = "dbkj4735h2f3lu"
+DB_USER = "frsaepunzvppfq"
+DB_PASS = "d89815db98e34772f8c4ef083e0e32375122863ad7cf1e05b049df98538abb04"
      
 conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
   
@@ -154,6 +154,4 @@ def display_image(filename):
     return redirect(url_for('static', filename='uploads/' + filename), code=301)
 
   
-if __name__ == "__main__":
-    app.debug = True
-    app.run()
+
