@@ -27,22 +27,34 @@ from tensorflow.keras.models import Model
 import matplotlib.pyplot as plt
 import seaborn as sns
 import cv2
-MODEL_PATH = 'models/covid_classifier.h5'
+MODEL_PATH = 'models/resnet_chest.h5'
 from tensorflow.keras.models import load_model
 # Recreate the exact same model, including its weights and the optimizer
-new_model = load_model('models/covid_pneumo_model.h5')
+new_model = load_model('models/resnet_chest.h5')
 
-def test_rx_image_for_Covid19(file_path):
-    img = cv2.imread(file_path)
+# def test_rx_image_for_Covid19(file_path):
+#     img = cv2.imread(file_path)
+#     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+#     img = cv2.resize(img, (224, 224))
+#     img = np.expand_dims(img, axis=0)
+
+#     img = np.array(img) / 255.0
+
+#     pred = new_model.predict(img)
+#     pred_neg = round(pred[0][1] * 100)
+#     pred_pos = round(pred[0][0] * 100)
+
+def test_rx_image_for_Covid19(imagePath):
+    img = cv2.imread(imagePath)
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     img = cv2.resize(img, (224, 224))
     img = np.expand_dims(img, axis=0)
 
     img = np.array(img) / 255.0
 
-    pred = new_model.predict(img)
-    pred_neg = round(pred[0][1] * 100)
-    pred_pos = round(pred[0][0] * 100)
+    pred = model.predict(img)
+
+    return pred
 
     # for each image in the testing set we need to find the index of the
     # label with corresponding largest predicted probability
@@ -50,21 +62,21 @@ def test_rx_image_for_Covid19(file_path):
 
     print('\n X-Ray Covid-19 Detection using AI - MJRovai')
     print('    [WARNING] - Only for didactic purposes')
-    if np.argmax(pred, axis=1)[0] == 1:
-        plt.title(
-            '\nPrediction: [NEGATIVE] with prob: {}% \nNo Covid-19\n'.format(
-                pred_neg),
-            fontsize=12)
-    else:
-        plt.title(
-            '\nPrediction: [POSITIVE] with prob: {}% \nPneumonia by Covid-19 Detected\n'
-            .format(pred_pos),
-            fontsize=12)
+#     if np.argmax(pred, axis=1)[0] == 1:
+#         plt.title(
+#             '\nPrediction: [NEGATIVE] with prob: {}% \nNo Covid-19\n'.format(
+#                 pred_neg),
+#             fontsize=12)
+#     else:
+#         plt.title(
+#             '\nPrediction: [POSITIVE] with prob: {}% \nPneumonia by Covid-19 Detected\n'
+#             .format(pred_pos),
+#             fontsize=12)
 
-    #img_out = plt.imread(file_path)
-    #plt.imshow(img_out)
-    #plt.savefig('../Image_Prediction/Image_Prediction.png')
-    return pred_pos
+#     #img_out = plt.imread(file_path)
+#     #plt.imshow(img_out)
+#     #plt.savefig('../Image_Prediction/Image_Prediction.png')
+#     return pred_pos
 
 
 print('Model loaded. Check http://127.0.0.1:5000/')
@@ -111,7 +123,7 @@ def upload_image():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         #print('upload_image filename: ' + filename)
         file_path = ('static/uploads/Normal-15.png')
-        pred_pos = pred = test_rx_image_for_Covid19('static/uploads/'+filename)
+        pred = test_rx_image_for_Covid19('static/uploads/'+filename)
         #print('Probabilities:', probabilities)
         #print('Predicted class index:', predicted_class_index)
         #print('Predicted class name:', predicted_class_name)
@@ -126,18 +138,19 @@ def upload_image():
         mobile=request.form["mobile"]
         gender=request.form["gender"]
         bloodgroup=request.form["bloodgroup"]
-        cursor.execute("INSERT INTO db_cc_photo (img , name , age, city, state, pincode, mobile, gender, bloodgroup , probabilities) VALUES (%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s)", (filename, name , age, city, state, pincode, mobile, gender, bloodgroup, pred_pos) )
+        cursor.execute("INSERT INTO db_cc_photo (img , name , age, city, state, pincode, mobile, gender, bloodgroup , probabilities) VALUES (%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s)", (filename, name , age, city, state, pincode, mobile, gender, bloodgroup, 
+        ) )
         conn.commit() 
         #file_path = file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         # Make prediction
         
         #display(image_path)
-        if (pred_pos >= 50):
+        if (pred[1] <= 0.5):
 
-            return render_template('index.html', prob_text='Patient is Covid-19 Possitive And Probability is : {}'.format( pred_pos) , filename=filename) 
+            return render_template('index.html', prob_text='Patient is Covid-19 Possitive And Probability is : {}'.format( pred) , filename=filename) 
         else:
-            return render_template('index.html', prob_text='Covid-19 Nagative And Probability is : {}'.format( pred_pos) , filename=filename)
+            return render_template('index.html', prob_text='Covid-19 Nagative And Probability is : {}'.format( pred) , filename=filename)
  
         #flash('Image successfully uploaded and displayed below')
         #return render_template('index.html', filename=filename)
