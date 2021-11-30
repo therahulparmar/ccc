@@ -84,10 +84,10 @@ app = Flask(__name__)
      
 app.secret_key = "cairocoders-ednalan"
      
-DB_HOST = "ec2-44-194-6-121.compute-1.amazonaws.com"
-DB_NAME = "dbkj4735h2f3lu"
-DB_USER = "frsaepunzvppfq"
-DB_PASS = "d89815db98e34772f8c4ef083e0e32375122863ad7cf1e05b049df98538abb04"
+DB_HOST = "ec2-52-22-81-147.compute-1.amazonaws.com"
+DB_NAME = "dc4dvtu6fb2ha2"
+DB_USER = "udtsfbvuwfhjee"
+DB_PASS = "998428904a9c98bfd3a7e20f0b338eb6b987dde755f49c9c8d8807ecb0524e78"
      
 conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
   
