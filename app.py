@@ -144,9 +144,9 @@ def upload_image():
         gender=request.form["gender"]
         bloodgroup=request.form["bloodgroup"]
         print("all data received")
-        #cursor.execute("INSERT INTO db_cc_Photo (img , name , age, city, state, pincode, mobile, gender, bloodgroup ) VALUES (%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s )", (filename, name , age, city, state, pincode, mobile, gender, bloodgroup ) )
-        #conn.commit() 
-        #file_path = file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        cursor.execute("INSERT INTO db_cc_Photo (img , name , age, city, state, pincode, mobile, gender, bloodgroup ) VALUES (%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s )", (filename, name , age, city, state, pincode, mobile, gender, bloodgroup ) )
+        conn.commit() 
+        file_path = file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         # Make prediction
         
