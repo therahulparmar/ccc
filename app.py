@@ -125,6 +125,7 @@ def upload_image():
         #print('upload_image filename: ' + filename)
         file_path = ('static/uploads/Normal-15.png')
         pred = test_rx_image_for_Covid19('static/uploads/'+filename)
+        print("100% covid")
         #print('Probabilities:', probabilities)
         #print('Predicted class index:', predicted_class_index)
         #print('Predicted class name:', predicted_class_name)
@@ -139,6 +140,7 @@ def upload_image():
         mobile=request.form["mobile"]
         gender=request.form["gender"]
         bloodgroup=request.form["bloodgroup"]
+        print("all data received")
         #cursor.execute("INSERT INTO db_cc_Photo (img , name , age, city, state, pincode, mobile, gender, bloodgroup ) VALUES (%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s )", (filename, name , age, city, state, pincode, mobile, gender, bloodgroup ) )
         #conn.commit() 
         #file_path = file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
