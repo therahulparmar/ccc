@@ -12,7 +12,7 @@ import psycopg2 #pip install psycopg2
 import psycopg2.extras
 # import torchvision
 # import torch
-# import numpy as np
+import numpy as np
 #from tensorflow.keras.preprocessing.image import ImageDataGenerator
 #from tensorflow.keras.applications import VGG16
 #from tensorflow.keras.layers import AveragePooling2D
