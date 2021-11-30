@@ -119,11 +119,14 @@ def upload_image():
     if file.filename == '':
         flash('No image selected for uploading')
         return redirect(request.url)
+        print("121")
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
+        print("file name received")
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        print("126")
         #print('upload_image filename: ' + filename)
-        file_path = ('static/uploads/Normal-15.png')
+#         file_path = ('static/uploads/Normal-15.png')
         pred = test_rx_image_for_Covid19('static/uploads/'+filename)
         print("100% covid")
         #print('Probabilities:', probabilities)
