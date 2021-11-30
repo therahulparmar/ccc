@@ -27,6 +27,7 @@ from tensorflow.keras.models import Model
 # import matplotlib.pyplot as plt
 # import seaborn as sns
 import cv2
+import os
 MODEL_PATH = 'models/resnet_chest.h5'
 from tensorflow.keras.models import load_model
 # Recreate the exact same model, including its weights and the optimizer
@@ -90,7 +91,7 @@ DB_USER = "udtsfbvuwfhjee"
 DB_PASS = "998428904a9c98bfd3a7e20f0b338eb6b987dde755f49c9c8d8807ecb0524e78"
      
 conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
-  
+print("Database opened successfully")
 UPLOAD_FOLDER = 'static/uploads/'
   
 app.secret_key = "secret key"
@@ -110,7 +111,7 @@ def home():
 @app.route('/', methods=['POST'])
 def upload_image():
     cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
- 
+    print("cursor connection success")
     if 'file' not in request.files:
         flash('No file part')
         return redirect(request.url)
@@ -138,9 +139,8 @@ def upload_image():
         mobile=request.form["mobile"]
         gender=request.form["gender"]
         bloodgroup=request.form["bloodgroup"]
-#         cursor.execute("INSERT INTO cc_cloud.db_cc_Photo (img , name , age, city, state, pincode, mobile, gender, bloodgroup , probabilities) VALUES (%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s)", (filename, name , age, city, state, pincode, mobile, gender, bloodgroup,pred[0,1] 
-#         ) )
-#         conn.commit() 
+        #cursor.execute("INSERT INTO db_cc_Photo (img , name , age, city, state, pincode, mobile, gender, bloodgroup ) VALUES (%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s )", (filename, name , age, city, state, pincode, mobile, gender, bloodgroup ) )
+        #conn.commit() 
         #file_path = file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         # Make prediction
@@ -165,6 +165,3 @@ def upload_image():
 def display_image(filename):
     print('display_image filename: ' + filename)
     return redirect(url_for('static', filename='uploads/' + filename), code=301)
-
-  
-
