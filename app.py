@@ -138,7 +138,7 @@ def upload_image():
         mobile=request.form["mobile"]
         gender=request.form["gender"]
         bloodgroup=request.form["bloodgroup"]
-        cursor.execute("INSERT INTO cc_cloud.db_cc_Photo (img , name , age, city, state, pincode, mobile, gender, bloodgroup , probabilities) VALUES (%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s)", (filename, name , age, city, state, pincode, mobile, gender, bloodgroup,pred[1] 
+        cursor.execute("INSERT INTO cc_cloud.db_cc_Photo (img , name , age, city, state, pincode, mobile, gender, bloodgroup , probabilities) VALUES (%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s)", (filename, name , age, city, state, pincode, mobile, gender, bloodgroup,pred[0,1] 
         ) )
         conn.commit() 
         #file_path = file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
@@ -146,7 +146,7 @@ def upload_image():
         # Make prediction
         
         #display(image_path)
-        if (pred[1] <= 0.5):
+        if (pred[0,1] <= 0.5):
 
             return render_template('index.html', prob_text='Patient is Covid-19 Possitive And Probability is : {}'.format( pred) , filename=filename) 
         else:
