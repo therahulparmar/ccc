@@ -93,7 +93,7 @@ DB_PASS = "998428904a9c98bfd3a7e20f0b338eb6b987dde755f49c9c8d8807ecb0524e78"
 conn = psycopg2.connect(dbname=DB_NAME, user=DB_USER, password=DB_PASS, host=DB_HOST)
 print("Database opened successfully")
 UPLOAD_FOLDER = 'static/uploads/'
-  
+print("upload successfull")
 app.secret_key = "secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
@@ -144,32 +144,28 @@ def upload_image():
         gender=request.form["gender"]
         bloodgroup=request.form["bloodgroup"]
         print("all data received")
-#         cursor.execute("INSERT INTO db_cc_Photo (img , name , age, city, state, pincode, mobile, gender, bloodgroup ) VALUES (%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s )", (filename, name , age, city, state, pincode, mobile, gender, bloodgroup ) )
-#         conn.commit() 
-#         file_path = file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-        # Make prediction
-#----------------------------------------------
-#         #display(image_path)
-#         if (pred[0,1] <= 0.5):
-
-#             return render_template('index.html', prob_text='Patient is Covid-19 Positive And Probability is : {}'.format( pred) , filename=filename) 
-#         else:
-#             return render_template('index.html', prob_text='Covid-19 Negative And Probability is : {}'.format( pred) , filename=filename)
- 
-
-# ----------------------------------------
-
-          if (pred[0,1] <= 0.5):
+        prob = pred[0,1]*100
+        prob_n = 100-prob
+        if (pred[0,1] <= 0.5):
             pre_c_name = 'Covid Positive'
             prob_c = 100-prob
-          else:
+        else:
             pre_c_name = 'Covid Negative'
             prob_c = pred[0,1]*100
-          cursor.execute("INSERT INTO db_cc_Photo (img , name , age, city, state, pincode, mobile, gender, bloodgroup,predicted_class_name, probabilities ) VALUES (%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s , %s)", (filename, name , age, city, state, pincode, mobile, gender, bloodgroup, pre_c_name,prob_c) )
-          conn.commit()
+        cursor.execute("INSERT INTO db_cc_Photo (img , name , age, city, state, pincode, mobile, gender, bloodgroup,predicted_class_name, probabilities ) VALUES (%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s ,%s , %s)", (filename, name , age, city, state, pincode, mobile, gender, bloodgroup, pre_c_name,prob_c) )
+        conn.commit() 
+        #file_path = file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        #flash('Image successfully uploaded and displayed below')
+        # Make prediction
+        
+        #display(image_path)
+        if (pred[0,1] <= 0.5):
+
+            return render_template('index.html', prob_text='Patient is Covid-19 Positive And Probability is : {}'.format( prob_n) , filename=filename) 
+        else:
+            return render_template('index.html', prob_text='Covid-19 Negative And Probability is : {}'.format(prob ) , filename=filename)
+ 
+        flash('Image successfully uploaded and displayed below')
         #return render_template('index.html', filename=filename)
     else:
         flash('Allowed image types are - png, jpg, jpeg, gif')
